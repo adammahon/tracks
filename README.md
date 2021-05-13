@@ -5,6 +5,8 @@ Create a widget that will load in the top tracks (provided in `tracks/top.json`)
 Please recreate the spec.png to the best of your ability.
 
 ## Notes
+* Please Fork this project and only share your Fork
+* Do NOT open Pull Requests on this repo
 * No front end framework (React/Angular/Vue etc)
 * JS tooling is okay but not required. (Typescript, babel, etc.)
 * Plain/Vanilla CSS. SASS/SCSS is okay but not required.
