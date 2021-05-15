@@ -21,8 +21,7 @@ export class ImagesService {
             const fileName = name.replace(/\..*/, '');
             const filePath = path.join(
                 __dirname,
-                '../../..',
-                `assets/images/artists/${fileName}.jpg`
+                `images/artists/${fileName}.jpg`
             );
 
             // Determine if the file exists or not

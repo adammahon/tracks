@@ -14,7 +14,7 @@ import { TracksModule } from './tracks/tracks.module';
 @Module({
     imports: [
         ServeStaticModule.forRoot({
-            rootPath: path.join(__dirname, '../..', 'frontend'),
+            rootPath: path.join(__dirname, '..', 'frontend'),
             renderPath: 'index.html'
         }),
         ImagesModule,
