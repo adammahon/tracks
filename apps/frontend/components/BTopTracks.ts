@@ -57,6 +57,13 @@ export class BTopTracks extends HTMLElement {
      */
     public sortBy = '';
 
+    /**
+     * The type of sort to perform
+     * @public
+     * @type {string}
+     */
+    public sortType = '';
+
     /* ********************* */
     /* ** Lifecycle Hooks ** */
     /* ********************* */
@@ -113,11 +120,14 @@ export class BTopTracks extends HTMLElement {
         event.stopPropagation();
 
         // Set the sort by field into state
-        this.sortBy = (event as CustomEvent).detail;
+        this.sortBy = (event as CustomEvent).detail.sortBy;
+        this.sortType = (event as CustomEvent).detail.sortType;
 
-        // Re-render the component
-        this.render();
-        this.attachEvents();
+        // Re-render the component when necessary
+        if (this.sortBy && this.sortType) {
+            this.render();
+            this.attachEvents();
+        }
     }
 
     /* ******************** */
@@ -134,8 +144,8 @@ export class BTopTracks extends HTMLElement {
         this.shadowRoot.innerHTML = `
             <div>
                 <span>${this.title}</span>
-                <b-top-tracks-form-controls sort-by="${this.sortBy}"></b-top-tracks-form-controls>
-                <b-top-tracks-card-list sort-by="${this.sortBy}"></b-top-tracks-card-list>
+                <b-top-tracks-form-controls sort-by="${this.sortBy}" sort-type="${this.sortType}"></b-top-tracks-form-controls>
+                <b-top-tracks-card-list sort-by="${this.sortBy}" sort-type="${this.sortType}"></b-top-tracks-card-list>
                 <slot></slot>
                 <style>
                     div {
@@ -172,7 +182,7 @@ export class BTopTracks extends HTMLElement {
 
         // Attach the event listener if the sort by field was found in the shadow dom
         if (rootElement) {
-            rootElement.addEventListener('onChangeSortBy', e => this.onSort(e));
+            rootElement.addEventListener('onSort', e => this.onSort(e));
         }
     }
 }

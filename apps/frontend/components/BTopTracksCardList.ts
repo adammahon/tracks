@@ -5,7 +5,7 @@ import { Track } from '../models/Track';
 import { VTrackCard } from './VTrackCard';
 
 // Misc.
-import { SortBy } from './BTopTracksFormControls';
+import { SortBy, SortType } from './BTopTracksFormControls';
 
 /**
  * Object schema of the top tracks response data
@@ -87,6 +87,31 @@ export class BTopTracksCardList extends HTMLElement {
         }
     }
 
+    /**
+     * The type of sort that should be performed
+     * @public
+     * @type {SortType}
+     */
+    public get sortType(): SortType {
+        // Get the prop value
+        const sortType = this.getAttribute('sort-type');
+
+        // Return null if no sort type prop was provided
+        if (!sortType) {
+            return SortType.Ascending;
+        }
+
+        // Convert the sort type string into the respective enum
+        switch (sortType.toLowerCase()) {
+            case SortType.Ascending.toLowerCase():
+                return SortType.Ascending;
+            case SortType.Descending.toLowerCase():
+                return SortType.Descending;
+            default:
+                return SortType.Ascending;
+        }
+    }
+
     /* ********************* */
     /* ** Component State ** */
     /* ********************* */
@@ -115,22 +140,31 @@ export class BTopTracksCardList extends HTMLElement {
      * @type {Track[]}
      */
     public get sortedTracks(): Track[] {
-        // Get the field to sort by
+        // Get the field to sort by and the type of sort to perform
         const sortBy = this.sortBy;
+        const sortType = this.sortType;
 
         // Return in the same order as which the API responded if no sort by has been set
-        if (!sortBy) {
+        if (!sortBy || !sortType) {
             return this.tracks;
         }
 
         // Return a sorted list of tracks
         return this.tracks.sort((a, b) => {
             if (a[sortBy] < b[sortBy]) {
-                return -1;
+                if (sortType === SortType.Ascending) {
+                    return -1;
+                } else {
+                    return 1;
+                }
             }
 
             if (a[sortBy] > b[sortBy]) {
-                return 1;
+                if (sortType === SortType.Ascending) {
+                    return 1;
+                } else {
+                    return -1;
+                }
             }
 
             return 0;
