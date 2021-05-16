@@ -96,4 +96,39 @@ export class Track {
         // Return the url at which the artist's image can be retrieved
         return `http://localhost:3000/images/artist/${slug}`;
     }
+
+    /* ********************** */
+    /* ** Instance Methods ** */
+    /* ********************** */
+
+    /**
+     * Get the color associated with a specific genre
+     * @public
+     *
+     * @param {string} genre - The genre to get the associated color for
+     *
+     * @returns {string} - The color associated with the passed in genre
+     */
+    public getColorForGenre(genre: string): string | null {
+        // Define which genres map to which colors
+        const colorMapping = {
+            bossanova: '#E58A45',
+            soul: '#8CD2DC',
+            electronic: '#B9CA68',
+            pop: '#D65965',
+            alternative: '#6F4C9D',
+            rock: '#43739A'
+        };
+
+        // Get the color for the provided genre
+        const color = colorMapping[genre];
+
+        // Return null if no color was found for the provided genre
+        if (!color) {
+            return null;
+        }
+
+        // Return the color associated with the passed in genre
+        return color;
+    }
 }

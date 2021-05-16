@@ -50,6 +50,10 @@ export class VTrackCard extends HTMLElement {
     public track: Track | null = null;
 
     /* ********************* */
+    /* ** Getters/Setters ** */
+    /* ********************* */
+
+    /* ********************* */
     /* ** Lifecycle Hooks ** */
     /* ********************* */
 
@@ -95,7 +99,16 @@ export class VTrackCard extends HTMLElement {
                     <v-card-text>
                         ${this.track.genres.reduce(
                             (html, g) =>
-                                (html += `<v-tag text-color="#FFFFFF" background-color="green">${g}</v-tag>`),
+                                (html += `
+                                    <v-tag
+                                        text-color="#FFFFFF"
+                                        background-color="${this.track.getColorForGenre(
+                                            g
+                                        )}"
+                                    >
+                                        ${g}
+                                    </v-tag>
+                                `),
                             ''
                         )}
                     </v-card-text>
