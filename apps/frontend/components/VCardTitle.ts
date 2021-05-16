@@ -5,9 +5,9 @@
  * @extends HTMLElement
  */
 export class VCardTitle extends HTMLElement {
-    /**********************/
-    /*** Component Name ***/
-    /**********************/
+    /* ******************** */
+    /* ** Component Name ** */
+    /* ******************** */
 
     /**
      * The name of the component
@@ -17,9 +17,9 @@ export class VCardTitle extends HTMLElement {
      */
     public static componentName = 'v-card-title';
 
-    /*******************/
-    /*** Constructor ***/
-    /*******************/
+    /* ***************** */
+    /* ** Constructor ** */
+    /* ***************** */
 
     /**
      * Creates a new instance of this component
@@ -33,9 +33,9 @@ export class VCardTitle extends HTMLElement {
         this.attachShadow({ mode: 'open' });
     }
 
-    /***********************/
-    /*** Lifecycle Hooks ***/
-    /***********************/
+    /* ********************* */
+    /* ** Lifecycle Hooks ** */
+    /* ********************* */
 
     /**
      * Lifecycle hook that executes whenever the component is created in the document
@@ -57,9 +57,9 @@ export class VCardTitle extends HTMLElement {
         this.render();
     }
 
-    /**********************/
-    /*** Public Methods ***/
-    /**********************/
+    /* ******************** */
+    /* ** Public Methods ** */
+    /* ******************** */
 
     /**
      * Renders the contents of this component
@@ -74,7 +74,6 @@ export class VCardTitle extends HTMLElement {
                     <slot></slot>
                 </span>
                 <style>
-                    :host,
                     div {
                         display: block;
                         padding: 1rem;

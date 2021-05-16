@@ -5,9 +5,9 @@
  * @extends HTMLElement
  */
 export class VCardText extends HTMLElement {
-    /**********************/
-    /*** Component Name ***/
-    /**********************/
+    /* ******************** */
+    /* ** Component Name ** */
+    /* ******************** */
 
     /**
      * The name of the component
@@ -17,9 +17,9 @@ export class VCardText extends HTMLElement {
      */
     public static componentName = 'v-card-text';
 
-    /*******************/
-    /*** Constructor ***/
-    /*******************/
+    /* ***************** */
+    /* ** Constructor ** */
+    /* ***************** */
 
     /**
      * Creates a new instance of this component
@@ -33,9 +33,9 @@ export class VCardText extends HTMLElement {
         this.attachShadow({ mode: 'open' });
     }
 
-    /***********************/
-    /*** Lifecycle Hooks ***/
-    /***********************/
+    /* ********************* */
+    /* ** Lifecycle Hooks ** */
+    /* ********************* */
 
     /**
      * Lifecycle hook that executes whenever the component is created in the document
@@ -57,9 +57,9 @@ export class VCardText extends HTMLElement {
         this.render();
     }
 
-    /**********************/
-    /*** Public Methods ***/
-    /**********************/
+    /* ******************** */
+    /* ** Public Methods ** */
+    /* ******************** */
 
     /**
      * Renders the contents of this component
@@ -72,7 +72,6 @@ export class VCardText extends HTMLElement {
             <div>
                 <slot></slot>
                 <style>
-                    :host,
                     div {
                         display: flex;
                         padding: 1rem;

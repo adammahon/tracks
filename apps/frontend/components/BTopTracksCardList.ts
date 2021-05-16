@@ -1,5 +1,11 @@
+// Models
 import { Track } from '../models/Track';
-import { BTrackCard } from './BTrackCard';
+
+// Components
+import { VTrackCard } from './VTrackCard';
+
+// Misc.
+import { SortBy } from './BTopTracksFormControls';
 
 /**
  * Object schema of the top tracks response data
@@ -16,15 +22,15 @@ interface TopTracksRawResponse {
 }
 
 /**
- * The BTopTracksCardList component
+ * The BTopTracks component
  * @public
  * @class
  * @extends HTMLElement
  */
 export class BTopTracksCardList extends HTMLElement {
-    /**********************/
-    /*** Component Name ***/
-    /**********************/
+    /* ******************** */
+    /* ** Component Name ** */
+    /* ******************** */
 
     /**
      * The name of the component
@@ -34,9 +40,56 @@ export class BTopTracksCardList extends HTMLElement {
      */
     public static componentName = 'b-top-tracks-card-list';
 
-    /***********************/
-    /*** Component State ***/
-    /***********************/
+    /* ***************** */
+    /* ** Constructor ** */
+    /* ***************** */
+
+    /**
+     * Creates a new instance of this component
+     * @public
+     * @constructor
+     */
+    public constructor() {
+        super();
+
+        // Create the shadow dom for this component
+        this.attachShadow({ mode: 'open' });
+    }
+
+    /* ********************* */
+    /* ** Component Props ** */
+    /* ********************* */
+
+    /**
+     * The field in which the track list should be sorted by
+     * @public
+     * @type {SortBy | null}
+     */
+    public get sortBy(): SortBy | null {
+        // Get the prop value
+        const sortBy = this.getAttribute('sort-by');
+
+        // Return null if no sort by prop was provided
+        if (!sortBy) {
+            return null;
+        }
+
+        // Convert the sort by string into the respective enum
+        switch (sortBy.toLowerCase()) {
+            case SortBy.Artist.toLowerCase():
+                return SortBy.Artist;
+            case SortBy.Title.toLowerCase():
+                return SortBy.Title;
+            case SortBy.PlayCount.toLowerCase():
+                return SortBy.PlayCount;
+            default:
+                return null;
+        }
+    }
+
+    /* ********************* */
+    /* ** Component State ** */
+    /* ********************* */
 
     /**
      * The tracks to display
@@ -52,25 +105,51 @@ export class BTopTracksCardList extends HTMLElement {
      */
     public loading = true;
 
-    /*******************/
-    /*** Constructor ***/
-    /*******************/
+    /* ********************* */
+    /* ** Getters/Setters ** */
+    /* ********************* */
 
     /**
-     * Creates a new instance of this component
+     * All tracks sorted by the selected field
      * @public
-     * @constructor
+     * @type {Track[]}
      */
-    public constructor() {
-        super();
+    public get sortedTracks(): Track[] {
+        // Get the field to sort by
+        const sortBy = this.sortBy;
 
-        // Create the shadow dom for this component
-        this.attachShadow({ mode: 'open' });
+        // Return in the same order as which the API responded if no sort by has been set
+        if (!sortBy) {
+            return this.tracks;
+        }
+
+        // Return a sorted list of tracks
+        return this.tracks.sort((a, b) => {
+            if (a[sortBy] < b[sortBy]) {
+                return -1;
+            }
+
+            if (a[sortBy] > b[sortBy]) {
+                return 1;
+            }
+
+            return 0;
+        });
     }
 
-    /***********************/
-    /*** Lifecycle Hooks ***/
-    /***********************/
+    /* ********************* */
+    /* ** Lifecycle Hooks ** */
+    /* ********************* */
+
+    /**
+     * Getter that outlines which component attributes are reactive
+     * @public
+     * @static
+     * @type {string[]}
+     */
+    public static get observedAttributes(): string[] {
+        return ['sort-by'];
+    }
 
     /**
      * Lifecycle hook that executes whenever the component is created in the document
@@ -108,9 +187,9 @@ export class BTopTracksCardList extends HTMLElement {
         this.render();
     }
 
-    /**********************/
-    /*** Public Methods ***/
-    /**********************/
+    /* ******************** */
+    /* ** Public Methods ** */
+    /* ******************** */
 
     /**
      * Renders the contents of this component
@@ -122,11 +201,28 @@ export class BTopTracksCardList extends HTMLElement {
         if (this.loading) {
             this.shadowRoot.innerHTML = '<p>Loading...</p>';
         } else {
-            this.shadowRoot.innerHTML = '';
+            this.shadowRoot.innerHTML = `
+                <div>
+                    <style>
+                        div {
+                            display: flex;
+                            justify-content: space-evenly;
+                            width: 80%;
+                            margin: auto;
+                        }
+                    </style>
+                </div>
+            `;
 
-            this.tracks.map(t =>
-                this.shadowRoot.appendChild(new BTrackCard(t))
-            );
+            // Get the root element of this component
+            const parent = this.shadowRoot.querySelector('div');
+
+            // Add the tracks to the root element
+            if (parent) {
+                this.sortedTracks.map(t =>
+                    parent.appendChild(new VTrackCard(t))
+                );
+            }
         }
     }
 

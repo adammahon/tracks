@@ -5,9 +5,9 @@
  * @extends HTMLElement
  */
 export class VCard extends HTMLElement {
-    /**********************/
-    /*** Component Name ***/
-    /**********************/
+    /* ******************** */
+    /* ** Component Name ** */
+    /* ******************** */
 
     /**
      * The name of the component
@@ -17,9 +17,9 @@ export class VCard extends HTMLElement {
      */
     public static componentName = 'v-card';
 
-    /*******************/
-    /*** Constructor ***/
-    /*******************/
+    /* ***************** */
+    /* ** Constructor ** */
+    /* ***************** */
 
     /**
      * Creates a new instance of this component
@@ -33,9 +33,9 @@ export class VCard extends HTMLElement {
         this.attachShadow({ mode: 'open' });
     }
 
-    /***********************/
-    /*** Component Props ***/
-    /***********************/
+    /* ********************* */
+    /* ** Component Props ** */
+    /* ********************* */
 
     /**
      * The height of the component
@@ -75,15 +75,15 @@ export class VCard extends HTMLElement {
         return `${numWidth}px`;
     }
 
-    /***********************/
-    /*** Lifecycle Hooks ***/
-    /***********************/
+    /* ********************* */
+    /* ** Lifecycle Hooks ** */
+    /* ********************* */
 
     /**
      * Getter that outlines which component attributes are reactive
      * @public
      * @static
-     * @type {string}
+     * @type {string[]}
      */
     public static get observedAttributes(): string[] {
         return ['height', 'width'];
@@ -109,9 +109,9 @@ export class VCard extends HTMLElement {
         this.render();
     }
 
-    /**********************/
-    /*** Public Methods ***/
-    /**********************/
+    /* ******************** */
+    /* ** Public Methods ** */
+    /* ******************** */
 
     /**
      * Renders the contents of this component
@@ -124,7 +124,7 @@ export class VCard extends HTMLElement {
             <div>
                 <slot></slot>
                 <style>
-                    :host {
+                    div {
                         display: flex;
                         flex-direction: column;
                         height: ${this.height};

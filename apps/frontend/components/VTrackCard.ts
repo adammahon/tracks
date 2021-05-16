@@ -1,10 +1,12 @@
+import { Track } from '../models/Track';
+
 /**
- * The VTag component
+ * The VTrackCard component
  * @public
  * @class
  * @extends HTMLElement
  */
-export class VTag extends HTMLElement {
+export class VTrackCard extends HTMLElement {
     /* ******************** */
     /* ** Component Name ** */
     /* ******************** */
@@ -15,7 +17,7 @@ export class VTag extends HTMLElement {
      * @static
      * @type {string}
      */
-    public static componentName = 'v-tag';
+    public static componentName = 'v-track-card';
 
     /* ***************** */
     /* ** Constructor ** */
@@ -26,8 +28,11 @@ export class VTag extends HTMLElement {
      * @public
      * @constructor
      */
-    public constructor() {
+    public constructor(track: Track = null) {
         super();
+
+        // Set the track to render
+        this.track = track || null;
 
         // Create the shadow dom for this component
         this.attachShadow({ mode: 'open' });
@@ -40,34 +45,13 @@ export class VTag extends HTMLElement {
     /**
      * The color of the component's text
      * @public
-     * @type {string}
+     * @type {Track}
      */
-    public get textColor(): string {
-        return this.getAttribute('text-color') || '#000000';
-    }
-
-    /**
-     * The background color of the component
-     * @public
-     * @type {string}
-     */
-    public get backgroundColor(): string {
-        return this.getAttribute('background-color') || 'transparent';
-    }
+    public track: Track | null = null;
 
     /* ********************* */
     /* ** Lifecycle Hooks ** */
     /* ********************* */
-
-    /**
-     * Getter that outlines which component attributes are reactive
-     * @public
-     * @static
-     * @type {string[]}
-     */
-    public static get observedAttributes(): string[] {
-        return ['text-color', 'background-color'];
-    }
 
     /**
      * Lifecycle hook that executes whenever the component is created in the document
@@ -100,20 +84,32 @@ export class VTag extends HTMLElement {
      * @returns {void}
      */
     public render(): void {
-        this.shadowRoot.innerHTML = `
-            <div>
-                <span>
-                    <slot></slot>
-                </span>
-                <style>
-                    :host {
-                        display: inline-block;
-                        padding: 0.25rem;
-                        color: ${this.textColor};
-                        background-color: ${this.backgroundColor}
-                    }
-                </style>
-            </div>
-        `;
+        if (!this.track) {
+            this.shadowRoot.innerHTML = '<p>Loading...</p>';
+        } else {
+            this.shadowRoot.innerHTML = `
+                <v-card width="300">
+                    <div class="img"></div>
+                    <v-card-title>${this.track.artistName}</v-card-title>
+                    <v-card-subtitle>${this.track.title}</v-card-subtitle>
+                    <v-card-text>
+                        ${this.track.genres.reduce(
+                            (html, g) =>
+                                (html += `<v-tag text-color="#FFFFFF" background-color="green">${g}</v-tag>`),
+                            ''
+                        )}
+                    </v-card-text>
+                    <style>
+                        .img {
+                            width: 100%;
+                            height: 300px;
+                            background: url(${this.track.artistImageUrl});
+                            background-repeat: no-repeat;
+                            background-size: cover;
+                        }
+                    </style>
+                </v-card>
+            `;
+        }
     }
 }

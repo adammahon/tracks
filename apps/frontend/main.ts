@@ -3,8 +3,10 @@ import { VCard } from './components/VCard';
 import { VCardText } from './components/VCardText';
 import { VCardTitle } from './components/VCardTitle';
 import { VCardSubtitle } from './components/VCardSubtitle';
-import { BTrackCard } from './components/BTrackCard';
+import { VTrackCard } from './components/VTrackCard';
 import { BTopTracksCardList } from './components/BTopTracksCardList';
+import { BTopTracksFormControls } from './components/BTopTracksFormControls';
+import { BTopTracks } from './components/BTopTracks';
 
 (window => {
     [
@@ -29,12 +31,20 @@ import { BTopTracksCardList } from './components/BTopTracksCardList';
             class: VCardSubtitle
         },
         {
-            name: BTrackCard.componentName,
-            class: BTrackCard
+            name: VTrackCard.componentName,
+            class: VTrackCard
         },
         {
             name: BTopTracksCardList.componentName,
             class: BTopTracksCardList
+        },
+        {
+            name: BTopTracksFormControls.componentName,
+            class: BTopTracksFormControls
+        },
+        {
+            name: BTopTracks.componentName,
+            class: BTopTracks
         }
     ].map(component => {
         window.customElements.define(component.name, component.class);
