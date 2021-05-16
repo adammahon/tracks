@@ -1,0 +1,38 @@
+{
+    "tracks": [
+        {
+            "artist": "Bebel Gilberto",
+            "title": "Batucada",
+            "playCount": "12",
+            "genre": [
+                "bossanova"
+            ]
+        },
+        {
+            "artist": "Sampha",
+            "title": "Plastic 100\u00B0C",
+            "playCount": "98",
+            "genre": [
+                "soul",
+                "electronic"
+            ]
+        },
+        {
+            "artist": "Lady Gaga",
+            "title": "Bad Romance",
+            "playCount": "42",
+            "genre": [
+                "pop"
+            ]
+        },
+        {
+            "artist": "Cero",
+            "title": "Exotic Penguin Night",
+            "playCount": "57",
+            "genre": [
+                "alternative",
+                "rock"
+            ]
+        }
+    ]
+}
