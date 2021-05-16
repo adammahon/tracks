@@ -50,10 +50,6 @@ export class VTrackCard extends HTMLElement {
     public track: Track | null = null;
 
     /* ********************* */
-    /* ** Getters/Setters ** */
-    /* ********************* */
-
-    /* ********************* */
     /* ** Lifecycle Hooks ** */
     /* ********************* */
 
