@@ -7,6 +7,8 @@ import { Track } from './track.entity';
 
 /**
  * Object schema of the top tracks file content
+ * @private
+ * @interface
  */
 interface TopTracksFileContent {
     tracks: {
