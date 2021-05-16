@@ -34,6 +34,19 @@ export class VCardText extends HTMLElement {
     }
 
     /* ********************* */
+    /* ** Component Props ** */
+    /* ********************* */
+
+    /**
+     * The alignment of the text content
+     * @public
+     * @type {string}
+     */
+    public get textAlign(): string {
+        return this.getAttribute('text-align') || '';
+    }
+
+    /* ********************* */
     /* ** Lifecycle Hooks ** */
     /* ********************* */
 
@@ -73,8 +86,9 @@ export class VCardText extends HTMLElement {
                 <slot></slot>
                 <style>
                     div {
-                        display: flex;
+                        display: block;
                         padding: 1rem;
+                        text-align: ${this.textAlign}
                     }
                 </style>
             </div>

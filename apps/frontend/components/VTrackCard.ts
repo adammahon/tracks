@@ -96,7 +96,7 @@ export class VTrackCard extends HTMLElement {
                     <div class="img"></div>
                     <v-card-title>${this.track.artistName}</v-card-title>
                     <v-card-subtitle>${this.track.title}</v-card-subtitle>
-                    <v-card-text>
+                    <v-card-text text-align="center">
                         ${this.track.genres.reduce(
                             (html, g) =>
                                 (html += `
